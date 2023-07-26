@@ -18,6 +18,7 @@ And then open the app at `localhost:8000`
 ## Command Injection
 
 As you can see at `main -> views.py` we are making use of eval which might lead to RCE.
+
 In order to exploit it we will go to: http://127.0.0.1:8000/calculation/ and then:
 
 ![](./images/1.png)
@@ -52,6 +53,7 @@ else:
 ## IDOR
 
 Let's go to `New Post` and try to create a new post.
+
 We just created a post! yay!! But we don't want anyone else to see it of course!
 
 I went to `main -> views.py` and had to made a modification in order to require login and also to check the user identity.
@@ -106,14 +108,19 @@ class PostDetailView(DetailView):
 ## pickle deserialization
 
 Now it's the pickle time!!
+
 We can upload our resume as a pickle file, which might lead us to pickle deserialization!
+
 I also added the `evil_pickle.py` file which might help in getting the .pkl to upload in order to get rce.
+
 You can start by creating your malicious pickle file with:
+
 ```
 python evil_pickle.py
 ```
 
 Now we are able to go to:
+
 http://127.0.0.1:8000/resume/ and upload our `.pkl` file.
 
 Your AV might get mad at you ;)
@@ -123,9 +130,13 @@ Never trust a pickle I guess, a part from pickle rick of course!!
 ## SSTI Injection
 
 Now it's the time to exploit the template!
+
 You can try to play with it to get RCE on the machine, while going to:
+
 http://127.0.0.1:8000/ssti/
+
 I also added 2 patches which are commented out at `main -> views.py` which you can try to use in order to patch the issue:
+
 ```python
 def ssti(request):
 
@@ -194,6 +205,7 @@ You can go to http://127.0.0.1:8000/visit/ and see if you can play with the sess
 ## XSS
 
 We will create a login page based on manual cookie handling to be able to see how it works.
+
 While creating the login we mistakenly used at `main -> templates -> main -> home_cookie.html`:
 
 ```
