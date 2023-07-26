@@ -1,9 +1,13 @@
 
 
 In order to get better at whitebox pentesting I started writing an web app in django.
+
 During the building of this app I inserted inbuilt vulnerabilities that one can look up for them.
+
 Also in this note I will explain how to exploit the vulnerabilities I inserted in purpose to the app and how to patch them, have fun!
+
 You can run the image by using:
+
 ```
 docker run -it -p 8000:8000 nirzaaa/django-cyberschool
 ```
