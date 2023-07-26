@@ -15,7 +15,10 @@ And then open the app at `localhost:8000`
 
 As you can see at `main -> views.py` we are making use of eval which might lead to RCE.
 In order to exploit it we will go to: http://127.0.0.1:8000/calculation/ and then:
+
 ![](./images/1.png)
+
+
 
 I tried to patch it by using `match`, is it enough? hmmm...
 
@@ -50,10 +53,20 @@ We just created a post! yay!! But we don't want anyone else to see it of course!
 I went to `main -> views.py` and had to made a modification in order to require login and also to check the user identity.
 
 As you can see I'm able to see dave's post without the need to login as him:
+
+
+
 ![](./images/2.png)
 
+
+
 But with the patch we are getting as needed:
+
+
+
 ![](./images/3.png)
+
+
 
 ```python
 # ==== The vulnerable class ==== #
