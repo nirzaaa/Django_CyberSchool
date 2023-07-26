@@ -1,24 +1,21 @@
 
 
 In order to get better at whitebox pentesting I started writing an web app in django.
-
 During the building of this app I inserted inbuilt vulnerabilities that one can look up for them.
-
 Also in this note I will explain how to exploit the vulnerabilities I inserted in purpose to the app and how to patch them, have fun!
-
 You can run the image by using:
 ```
 docker run -it -p 8000:8000 nirzaaa/django-cyberschool
 ```
 
 And then open the app at `localhost:8000`
-  
+
 
 ## Command Injection
 
 As you can see at `main -> views.py` we are making use of eval which might lead to RCE.
 In order to exploit it we will go to: http://127.0.0.1:8000/calculation/ and then:
-![](Pasted%20image%2020230726193812.png)
+![](./images/1.png)
 
 I tried to patch it by using `match`, is it enough? hmmm...
 
@@ -53,10 +50,10 @@ We just created a post! yay!! But we don't want anyone else to see it of course!
 I went to `main -> views.py` and had to made a modification in order to require login and also to check the user identity.
 
 As you can see I'm able to see dave's post without the need to login as him:
-![](Pasted%20image%2020230726194511.png)
+![](./images/2.png)
 
 But with the patch we are getting as needed:
-![](Pasted%20image%2020230726194631.png)
+![](./images/3.png)
 
 ```python
 # ==== The vulnerable class ==== #
