@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Create New List {% endblock %}
+
+{% block content %}
+<h1>Make a calculation</h1>
+<form method="post" action="/calculation/">
+    {% csrf_token %}
+    <!-- {{ form.as_p }} -->
+    {{form|crispy}}
+    <button type="submit" class="btn btn-success" name="save">Caclculate!</button>
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Create New List {% endblock %}
+
+{% block content %}
+<h1>Tell us something nice</h1>
+<form method="get" action="/ssti/">
+    <!-- {{ form.as_p }} -->
+    {{s_form|crispy}}
+    <button type="submit" class="btn btn-success" name="save">Submit</button>
+</form>
+{% endblock %}

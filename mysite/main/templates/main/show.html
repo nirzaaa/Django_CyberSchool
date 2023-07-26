@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Show the message!
+{% endblock %}
+
+{% block content %}
+<h1>Show the result!</h1>
+{% if hacker %}
+    You are a hacker!!
+{% else %}
+    The result of {{ t }} is:<br>{{ result }}
+{% endif %}
+
+{% endblock %}

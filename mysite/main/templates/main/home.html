@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+            <h1>Vulnerabilities we have</h1>
+            Each link will redirect you to a page contaninig a specific web vulnerability.
+            <br>
+            Have fun by trying to exploit it!
+            <br>
+            <br>
+            <ul>
+                <li><a class="article-title" href="{% url 'calculation' %}">Command Injection</a></li>
+                <li><a class="article-title" href="{% url 'idor' %}">IDOR</a></li>
+                <li><a class="article-title" href="{% url 'resume' %}">Pickle deserialization</a></li>
+                <li><a class="article-title" href="{% url 'ssti' %}">SSTI</a></li>
+                <li><a class="article-title" href="{% url 'visit' %}">Cookie based vulnerability</a></li>
+                <li><a class="article-title" href="{% url 'login_cookie' %}">XSS</a></li>
+            </ul>
+        </div>
+    </article>
+{% endblock %}
+

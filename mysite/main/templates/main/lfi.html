@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Trivia question {% endblock %}
+
+{% block content %}
+<h1>What kind of dog is that??</h1>
+<div>
+    <!-- <img src="/media/something/{{ cmd }}" /> -->
+    <!-- <embed src="/media/something/{{ cmd }}"> -->
+    <object data="/media/something/{{ cmd }}"></object> 
+</div>
+{% endblock %}

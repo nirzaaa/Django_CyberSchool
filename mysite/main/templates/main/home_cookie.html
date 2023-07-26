@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Home cookie {% endblock %}
+
+{% block content %}
+    <h1>Welcome to the home of the cookie!</h1>
+
+    {% if username %}
+    <h4>You are logged in as {{username | safe}}</h4>
+    <h4>Login Status: {{login_status}}</h4>
+    <a href="{% url 'logout_cookie' %}">logout</a>
+    {% else %}
+    <h4>You are not logged in</h4>
+    <a href="{% url 'login_cookie' %}">login</a>
+    {% endif %}
+
+{% endblock %}
+

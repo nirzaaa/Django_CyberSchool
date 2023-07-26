@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Cookie login {% endblock %}
+
+{% block content %}
+  <h1>Login please!</h1>
+
+  <div>
+    <form method="POST">
+      {% csrf_token %}
+        <div class="mb-3">
+          <label for="exampleInputUsername1" class="form-label">Username</label>
+          <input type="username" name="username" class="form-control" id="exampleInputUsername1" aria-describedby="usernameHelp">
+          <div id="usernameHelp" class="form-text">We'll never share your username with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
+{% endblock %}
