@@ -216,4 +216,6 @@ Try to exploit it by using XSS (`<script>alert('XSS');</script>`), then get the 
 
 How to patch this?? Hint: `SESSION_COOKIE_HTTPONLY = False`
 
+## Scraping with authenticate session
 
+I think it might be useful for some to scrape web apps after getting session authentication, so I added the file `authenticate_script.py` which does just that ;)
