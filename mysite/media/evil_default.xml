@@ -1,0 +1,6 @@
+<!--?xml version="1.0" ?-->
+<!DOCTYPE replace [<!ENTITY example "30"> ]>
+ <userInfo>
+  <present>horse but not a troyan one</present>
+  <price>&example;</price>
+ </userInfo>
