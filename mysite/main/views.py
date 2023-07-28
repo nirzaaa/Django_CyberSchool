@@ -9,7 +9,11 @@ from .forms import CreateNewPost, Calculation
 from django.http import HttpResponse, HttpResponseRedirect
 import os
 import re
-from .forms import Ssti
+from .forms import Ssti, Sqli, Ssrf
+from django.contrib import messages
+from .models import Post
+from users.models import Profile
+import requests
 
 # Create your views here.
 
@@ -245,3 +249,115 @@ def lfi(request):
     else:
         return HttpResponse("No input provided - enter ?cmd=")
 
+def sqli(response):
+
+    if response.method == "POST":
+        form = Sqli(response.POST)
+
+        if form.is_valid():
+            author = form.cleaned_data["query"]
+            messages.success(response, 'Query has been submitted!')
+            
+            # ===== Find tables in our app ==== #
+
+            # from django.apps import apps
+            # tables = [m._meta.db_table for c in apps.get_app_configs() for m in c.get_models()]
+            # print(tables)
+
+            # for p in Post.objects.raw("SELECT * FROM main_post"):
+            #     print(p)
+
+            # ================================= #
+
+            # ==== Print columns in a table ==== #
+
+            # print([f.get_attname() for f in Post._meta.fields])
+
+            # ================================== #
+
+            from django.contrib.auth.models import User
+            id_username = dict()
+            all_users = User.objects.values()
+            for value in all_users:
+                id_username[value['username']] = value['id']
+
+            if author in id_username.keys():
+                username_id = id_username[author]
+            else:
+                username_id = author
+
+            # ==== SQL Injection ==== #
+
+            post_query = Post.objects.raw("SELECT * FROM main_post WHERE author_id = '%s'" % username_id)
+
+            # ======================= #
+
+            # ==== patch : parameterized query ==== #
+
+            # post_query = Post.objects.raw("SELECT * FROM main_post WHERE author_id = '%s'", [username_id])
+
+            # ===================================== #
+            print(post_query)
+            posts = [p for p in post_query]
+            
+            s_form = Sqli()
+            context = {
+                'posts':posts,
+                's_form': s_form,
+            }
+
+            return render(response, "main/sqli.html", context)
+
+
+        return redirect('sqli')
+
+
+    else:
+        s_form = Sqli()
+
+    context = {
+        's_form': s_form,
+    }
+
+    return render(response, "main/sqli.html", context)
+
+def ssrf(response):
+
+    if response.method == "POST":
+        form = Ssrf(response.POST)
+
+        if form.is_valid():
+            url = form.cleaned_data["url"]
+            
+            matches = re.search('thisissecret', url)
+
+            if matches:
+                messages.warning(response, 'You are trying to access a confidential place!')
+                return redirect('ssrf')
+
+            else:
+                messages.success(response, 'We are processing your request!')
+                r = requests.get(url, allow_redirects=True)
+
+                context = {
+                    's_form': form,
+                    'text':r.text,
+                }
+
+                return render(response, "main/ssrf.html", context)
+        
+        return redirect('ssrf')
+
+    else:
+        form = Ssrf()
+
+
+    context = {
+        's_form': form,
+    }
+
+    return render(response, "main/ssrf.html", context)
+
+def thisissecret(request, restricted=False):
+    
+    return render(request, 'main/thisissecret.html')

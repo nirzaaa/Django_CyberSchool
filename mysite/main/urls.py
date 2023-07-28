@@ -22,4 +22,7 @@ urlpatterns = [
     path("logout_cookie/", main_views.logout_cookie, name="logout_cookie"),
     path('visit/', main_views.count_visit, name='visit'),
     path('lfi/', main_views.lfi, name='lfi'),
+    path('sqli/', main_views.sqli, name='sqli'),
+    path('ssrf/', main_views.ssrf, name='ssrf'),
+    path('thisissecret/', main_views.thisissecret, name='thisissecret', kwargs={'restricted': True}),
 ]
