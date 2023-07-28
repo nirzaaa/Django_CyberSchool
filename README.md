@@ -216,6 +216,32 @@ Try to exploit it by using XSS (`<script>alert('XSS');</script>`), then get the 
 
 How to patch this?? Hint: `SESSION_COOKIE_HTTPONLY = False`
 
+## SQL Injection
+
+Some awesome guys pointed me towards adding sql injection too so here we are ;)
+
+By going to this page: http://127.0.0.1:8000/sqli/ we will find there that we are able to query posts made by users:
+
+![](./images/4.png)
+
+Try to read other users posts ;) it is an easy one xD
+
+I patched it by using parameterized query:
+
+```
+# ==== SQL Injection ==== #
+
+post_query = Post.objects.raw("SELECT * FROM main_post WHERE author_id = '%s'" % username_id)
+
+# ======================= #
+
+# ==== patch : parameterized query ==== #
+
+# post_query = Post.objects.raw("SELECT * FROM main_post WHERE author_id = '%s'", [username_id])
+
+# ===================================== #
+```
+
 ## Scraping with authenticate session
 
 I think it might be useful for some to scrape web apps after getting session authentication, so I added the file `authenticate_script.py` which does just that ;)
