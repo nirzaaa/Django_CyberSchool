@@ -307,7 +307,7 @@ And now we will try to look for XXE:
 <!--?xml version="1.0" ?-->
 <!DOCTYPE replace [<!ENTITY example "30"> ]>
  <userInfo>
-  <present>horse but not a troyan one</present>
+  <present>horse but not a trojan one</present>
   <price>&example;</price>
  </userInfo>
 ```
