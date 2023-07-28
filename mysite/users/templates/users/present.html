@@ -1,0 +1,37 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    {% if error %}
+    
+        <h1>Don't try to XXE this site!! Go away!!</h1>
+    
+    {% else %}    
+
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Upload Present</legend>
+        Santa is in town! Upload your present you want from him in XML form!
+        {{ r_form|crispy }}
+        <input type="checkbox", value="clicked", name="secure"> Secure xml parsing
+    </fieldset>
+    <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Upload</button>
+    </div>
+    </form>
+
+    </div>
+    {% if data_list %}
+        <div>
+            <h1> Your requested present:</h1>
+            {% for i, j in data_list %}
+                {{ i }} : {{ j }}
+                <br>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% endif %}
+
+{% endblock content %}
