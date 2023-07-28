@@ -25,4 +25,5 @@ urlpatterns = [
     path('sqli/', main_views.sqli, name='sqli'),
     path('ssrf/', main_views.ssrf, name='ssrf'),
     path('thisissecret/', main_views.thisissecret, name='thisissecret', kwargs={'restricted': True}),
+    path("present/", users_views.present, name="present"),
 ]
