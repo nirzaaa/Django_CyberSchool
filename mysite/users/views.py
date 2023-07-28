@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ResumeUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ResumeUpdateForm, PresentUpdateForm
 from .models import Resume
 
 def register(request):
@@ -74,5 +74,71 @@ def my_pickle():
         output = pickle.load(f) # deserialize using load()
         # print(output) # print student names
 
+@login_required
+def present(request):
+
+    if request.method == 'POST':
+        r_form = PresentUpdateForm(request.POST, request.FILES, instance=request.user.present)
+
+        if r_form.is_valid():
+            r_form.save()
+            messages.success(request, f'Your present has been updated!')
+
+            secure = request.POST.get("secure")
+
+            data_list = my_present(secure)
+
+            if not isinstance(data_list, list):
+                return render(request, 'users/present.html', {'error': True, data_list: None})
+
+            else:
+                context = {
+                    'data_list': data_list,
+                    'r_form': r_form
+                }
 
 
+                return render(request, 'users/present.html', context)
+        
+    else:
+        r_form = PresentUpdateForm(instance=request.user.present)
+
+    context = {
+        'r_form': r_form
+    }
+
+    return render(request, 'users/present.html', context)
+
+def my_present(secure):
+    
+
+    from django.http import HttpResponse
+
+    import glob
+    import os
+    import json
+
+    list_of_files = glob.glob('./media/present_files/*')
+    latest_file = max(list_of_files, key=os.path.getctime)
+
+    try:
+        if secure:
+            import defusedxml.ElementTree as ET
+        else:
+            import xml.etree.ElementTree as ET
+
+        with open(latest_file, 'r') as f:
+            document = ET.parse(f)
+
+        root = document.getroot()
+        
+        data_list = list()
+
+        for x in root:
+            data_list.append((x.tag, x.text))
+        
+    except Exception as x:
+        data_list = x
+
+
+    return data_list

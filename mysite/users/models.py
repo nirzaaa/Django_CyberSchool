@@ -23,3 +23,10 @@ class Resume(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Resume'
+    
+class Present(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) # is user is deleted -> profile is deleted
+    file = models.FileField(default='default.xml', upload_to='present_files')
+
+    def __str__(self):
+        return f'{self.user.username} Present'

@@ -1,10 +1,11 @@
 from django.contrib import admin
-from .models import Profile, Resume
+from .models import Profile, Resume, Present
 from django.contrib.sessions.models import Session
 from django.contrib import admin
 
 admin.site.register(Profile)
 admin.site.register(Resume)
+admin.site.register(Present)
 
 class SessionAdmin(admin.ModelAdmin):
     def _session_data(self, obj):
