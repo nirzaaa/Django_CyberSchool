@@ -14,6 +14,7 @@ docker run -it -p 8000:8000 nirzaaa/django-cyberschool
 
 And then open the app at `localhost:8000`
 
+[TOC]
 
 ## Command Injection
 
