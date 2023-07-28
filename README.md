@@ -32,6 +32,8 @@ And then open the app at `localhost:8000`
 
 [SSRF](https://github.com/nirzaaa/Django_CyberSchool#ssrf)
 
+[XXE](https://github.com/nirzaaa/Django_CyberSchool#xxe)
+
 [Scraping with authenticate session](https://github.com/nirzaaa/Django_CyberSchool#scraping-with-authenticate-session)
 
 ## Command Injection
@@ -282,6 +284,35 @@ He knew I was coming! :(
 So, try to access it by using SSRF! Good luck!
 
 ![](./images/8.png)
+
+## XXE
+
+By going to: http://localhost:8000/present/ we will find a page where we are able to upload .xml files.
+
+Let's upload as needed:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<person>
+    <name>Airplane</name>
+    <price>30</price>
+    <something>idk</something>
+    
+</person>
+```
+
+And now we will try to look for XXE:
+
+```xml
+<!--?xml version="1.0" ?-->
+<!DOCTYPE replace [<!ENTITY example "30"> ]>
+ <userInfo>
+  <present>horse but not a troyan one</present>
+  <price>&example;</price>
+ </userInfo>
+```
+
+And we will see that by using the `Secure xml parsing ` we are not able to parse this xml file! But without it we are able to!
 
 ## Scraping with authenticate session
 
