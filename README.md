@@ -14,7 +14,25 @@ docker run -it -p 8000:8000 nirzaaa/django-cyberschool
 
 And then open the app at `localhost:8000`
 
-[TOC]
+## Table of Contents
+
+[Command Injection](https://github.com/nirzaaa/Django_CyberSchool#command-injection)
+
+[IDOR](https://github.com/nirzaaa/Django_CyberSchool#idor)
+
+[Pickle Deserialization](https://github.com/nirzaaa/Django_CyberSchool#pickle-deserialization)
+
+[SSTI Injection](https://github.com/nirzaaa/Django_CyberSchool#ssti-injection)
+
+[Cookie based vulnerability](https://github.com/nirzaaa/Django_CyberSchool#cookie-based-vulnerability)
+
+[XSS](https://github.com/nirzaaa/Django_CyberSchool#xss)
+
+[SQL Injection](https://github.com/nirzaaa/Django_CyberSchool#sql-injection)
+
+[SSRF](https://github.com/nirzaaa/Django_CyberSchool#ssrf)
+
+[Scraping with authenticate session](https://github.com/nirzaaa/Django_CyberSchool#scraping-with-authenticate-session)
 
 ## Command Injection
 
