@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+SSRF
+{% endblock %}
+
+{% block content %}
+<h1>SSRF - Home Page</h1>
+<form method="POST" action="/ssrf/">
+    {% csrf_token %}
+    {{s_form|crispy}}
+    <button type="submit" class="btn btn-success" name="save">Submit</button>
+</form>
+<div>
+    {{ text }}
+</div>
+{% endblock %}
