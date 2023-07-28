@@ -242,6 +242,28 @@ post_query = Post.objects.raw("SELECT * FROM main_post WHERE author_id = '%s'" %
 # ===================================== #
 ```
 
+## SSRF
+
+We will start by going to: http://localhost:8000/ssrf/ where we will find a place we can get access to source code of pages:
+
+![](./images/5.png)
+
+I tried to access:
+
+![](./images/6.png)
+
+But he knew I'm up to something!
+
+So, I tried going to it directly:
+
+![](./images/7.png)
+
+He knew I was coming! :(
+
+So, try to access it by using SSRF! Good luck!
+
+![](./images/8.png)
+
 ## Scraping with authenticate session
 
 I think it might be useful for some to scrape web apps after getting session authentication, so I added the file `authenticate_script.py` which does just that ;)
