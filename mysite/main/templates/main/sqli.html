@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
 SQL Injection
@@ -6,5 +7,24 @@ SQL Injection
 
 {% block content %}
 <h1>SQL Injection - Home Page</h1>
-Try to upload sneaky stuff xD
+<form method="POST" action="/sqli/">
+    {% csrf_token %}
+    {{s_form|crispy}}
+    <button type="submit" class="btn btn-success" name="save">Submit</button>
+</form>
+<div>
+    <h2>
+        Your posts:
+    </h2>
+    <ul>
+        {% for post in posts %}
+            <li>
+                {{ post }}
+                <br>
+                {{ post.content }}
+
+            </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
